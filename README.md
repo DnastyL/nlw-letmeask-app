@@ -38,4 +38,5 @@ Protected routes, async functions, darkmode(save mode with localstorage), app re
 
 
 Next Level Week / Mission: ReactJS [RocketSeat](https://rocketseat.com.br)
+
 This project was made by [Lucas Gomes](https://www.linkedin.com/in/lucas-gomes-a55857231/)
