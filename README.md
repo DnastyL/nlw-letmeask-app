@@ -5,7 +5,7 @@ Clear your query in real time
 
 # HOME
 
-![image](image.png)
+![image](https://user-images.githubusercontent.com/99768610/177207975-0e378cda-66a4-4b4e-97e3-0a97e9d804ba.png)
 
 # ROOM 
 
