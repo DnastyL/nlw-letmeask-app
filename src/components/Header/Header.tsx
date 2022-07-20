@@ -30,8 +30,6 @@ export const Header = ({ roomId, params }: HeaderProps) => {
   async function handleDirectAdminRoom(){
     const ref = await database.ref(`rooms/${roomId}`).get();
     const ownerRoom = ref.val().authorId;
-    
-
     if(user?.id === ownerRoom){
       navigate(`/admin/rooms/${roomId}`);
       setAdmin(true);
