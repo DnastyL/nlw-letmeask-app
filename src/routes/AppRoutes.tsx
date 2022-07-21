@@ -10,9 +10,9 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       {!!user && (
         <>
-          <Route path="/" element={<Home />} />
           <Route path="/rooms/new" element={<NewRoom />} />
           <Route path="/rooms/:id" element={<Room />} />
           <Route path="*" element={<Navigate to="/" />} />
