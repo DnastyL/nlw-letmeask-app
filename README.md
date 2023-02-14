@@ -4,7 +4,7 @@ Create rooms Q&A in live
 
 Get your queries answered in real time
 
-- You can test the application [here](https://letmeask-3144a.web.app).
+- You can test the application [here](https://letmeask-9dbef.web.app).
 
 # Description 
 
@@ -22,9 +22,11 @@ Protected routes, async functions, darkmode(save mode with localstorage), app re
 
 # Room
 
-![image](https://user-images.githubusercontent.com/99768610/177196750-f60e9dbf-d311-4409-ab07-93ca10cba68f.png)
+![image](https://user-images.githubusercontent.com/99768610/218856121-54d9d07b-b560-4dfd-9f46-804e70fb013f.png)
 
+# Admin Room
 
+![image](https://user-images.githubusercontent.com/99768610/218857313-abb4eca6-616e-43ac-874f-9cf13510329d.png)
 
 # Technologies
 
