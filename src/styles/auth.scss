@@ -1,154 +1,220 @@
-#page-auth{
+#page-auth {
+  display: flex;
+  align-items: stretch;
+  height: 100vh;
+
+  aside {
+    flex: 7;
+    background: #835afd;
+    color: #fff;
+
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 120px 80px;
+
+    img {
+      max-width: 320px;
+    }
+
+    strong {
+      font: 700 3.6rem "Poppins", sans-serif;
+      line-height: 4.2rem;
+      margin-top: 16px;
+    }
+    p {
+      font-size: 2.4rem;
+      line-height: 3.2rem;
+      margin-top: 16px;
+      color: #f8f8f8;
+    }
+  }
+
+  main {
+    flex: 8;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
     align-items: stretch;
-    height: 100vh;
+    text-align: center;
 
-    aside{
-        flex: 7;
-        background: #835afd;
-        color: #fff;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        padding: 120px 80px; 
-
-        img{
-            max-width: 320px;
-        }
-
-        strong{
-            font: 700 3.6rem 'Poppins', sans-serif;
-            line-height: 4.2rem;
-            margin-top: 16px;
-        }
-        p{
-            font-size: 2.4rem;
-            line-height: 3.2rem;
-            margin-top: 16px;
-            color: #f8f8f8;
-        }
+    > img {
+      align-self: center;
     }
 
-    main{
-        flex: 8;
-        padding: 0 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    h2 {
+      font-size: 2.4rem;
+      margin: 64px 0 24px;
+      font-family: "Poppins", sans-serif;
     }
 
-    .main-content{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-width: 320px;
-        align-items: stretch;
-        text-align: center;
-    
-        > img{
-            align-self: center;
-        }
-
-        h2{
-            font-size: 2.4rem;
-            margin: 64px 0 24px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        form{
-            input{
-                height: 50px;
-                border-radius: 8px;
-                padding: 0 16px;
-                background: #fff;
-                border: 1px solid #a8a8b3;
-            }
-
-            button{
-                margin-top: 16px;
-            }
-            button, input{
-                width: 100%;
-            }
-        }
-
-        p{
-            font-size: 1.4rem;
-            color: #737380;
-            margin-top: 16px;
-
-            a{
-                color: #e559f9;
-            }
-        }
-    }
-
-    .create-room{
-        margin-top: 64px;
+    form {
+      input {
         height: 50px;
         border-radius: 8px;
-        font-weight: 500;
-        background: #ea4335;
-        color: #fff;
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        border: 0;
+        padding: 0 16px;
+        background: #fff;
+        border: 1px solid #a8a8b3;
+      }
 
-        transition: filter 0.2s;
-
-        img{
-            margin-right: 8px;
-        }
-
-        &:hover{
-            filter:  brightness(0.9);
-        }
+      button {
+        margin-top: 16px;
+      }
+      button,
+      input {
+        width: 100%;
+      }
     }
 
-    .seperator{
-        font-size: 1.4rem;
-        color: #a8a8b3;
-
-        margin: 32px 0;
-        display: flex;
-        align-items: center;
-
-        &::before{
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #a8a8b3;
-            margin-right: 16px;
+    > p {
+      font-size: 1.4rem;
+      color: #737380;
+      margin-top: 16px;
+      strong {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
         }
-
-        &::after{
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #a8a8b3;
-            margin-left: 16px;
-        }
+      }
+      a {
+        color: #e559f9;
+      }
     }
+  }
+
+  .create-room {
+    margin-top: 64px;
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 500;
+    background: #ea4335;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+
+    transition: filter 0.2s;
+
+    img {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  .seperator {
+    font-size: 1.4rem;
+    color: #a8a8b3;
+
+    margin: 32px 0;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #a8a8b3;
+      margin-right: 16px;
+    }
+
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #a8a8b3;
+      margin-left: 16px;
+    }
+  }
+  .user-rooms-overlay {
+    padding: 10px;
+    width: 100%;
+
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > h1 {
+        font-size: 2.8rem;
+        text-align: initial;
+        color: #737380;
+      }
+    }
+    .user-rooms {
+      margin-top: 10px;
+      padding: 10px;
+      .room-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        & + .room-list {
+          margin-top: 10px;
+          align-items: center;
+        }
+        > p {
+          text-align: justify;
+          font-size: 1.4rem;
+          color: #737380;
+        }
+        > span {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          > img {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .button-close {
+    width: max-content;
+    height: max-content;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
-@media (max-width: 768px){
-    #page-auth{
-        aside{
-            padding: 0;
-        }
+@media (max-width: 768px) {
+  #page-auth {
+    aside {
+      padding: 0;
     }
+  }
 }
-@media (max-width: 603px){
-    #page-auth{
-        flex-direction: column;
+@media (max-width: 603px) {
+  #page-auth {
+    flex-direction: column;
 
-        aside{
-            display: flex;
-        }
+    aside {
+      display: flex;
     }
+  }
+}
+
+@media (max-width: 330px){
+  .room-list{
+    flex-wrap: wrap;
+  }
 }

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
+import React, { createContext, ReactNode, useState, useEffect } from "react";
 import { auth, firebase } from "../services/firebase";
 
 export type User = {
@@ -14,25 +14,27 @@ type AuthContextType = {
   setDark: React.Dispatch<React.SetStateAction<boolean>>;
   admin: boolean;
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+  updateQuestions: boolean;
+  setUpdateQuestions: React.Dispatch<React.SetStateAction<boolean>>;
+  updateAnswers: boolean;
+  setUpdateAnswers: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type AuthContextProviderProps = {
   children: ReactNode;
 };
-
-
 
 export const AuthContext = createContext({} as AuthContextType);
 export const AuthContextProvider = (props: AuthContextProviderProps) => {
   const [user, setUser] = useState<User>();
   const [dark, setDark] = useState(() => {
     const theme = localStorage.getItem("darkmode");
-  
+
     return theme ? JSON.parse(theme) : false;
   });
-  const [admin, setAdmin] = useState(false)
- 
-  
- 
+  const [admin, setAdmin] = useState(false);
+  const [updateQuestions, setUpdateQuestions] = useState(false);
+  const [updateAnswers, setUpdateAnswers] = useState(false);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -46,13 +48,15 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
           name: displayName,
           avatar: photoURL,
         });
+        setAdmin(() => {
+          return sessionStorage.getItem("admin") ? true : false;
+        });
       }
     });
     return () => {
       unsubscribe();
     };
   }, []);
-
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -70,12 +74,24 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
         name: displayName,
         avatar: photoURL,
       });
-
     }
   }
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, dark, setDark, admin, setAdmin}}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signInWithGoogle,
+        dark,
+        setDark,
+        admin,
+        setAdmin,
+        updateAnswers,
+        setUpdateAnswers,
+        updateQuestions,
+        setUpdateQuestions
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

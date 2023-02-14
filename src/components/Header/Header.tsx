@@ -3,7 +3,7 @@ import logoImg from "../../assets/images/logo.svg";
 import { useDark } from "../../hooks/useDark";
 import { Button } from "../Button/Button";
 import { RoomCode } from "../RoomCode/RoomCode";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { database } from "../../services/firebase";
 import RoomParams from "../../types/RoomParams";
 import { useAuth } from "../../hooks/useAuth";
@@ -14,28 +14,28 @@ type HeaderProps = {
   params: Readonly<Partial<RoomParams>>;
 };
 
-
 export const Header = ({ roomId, params }: HeaderProps) => {
   const { insertMode, dark } = useDark();
-  const { user, setAdmin} = useAuth();
+  const {admin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleEndRoom() {
-    database.ref(`rooms/${roomId}`).update({
+    await database.ref(`rooms/${roomId}`).update({
       endedAt: new Date(),
     });
+    sessionStorage.removeItem("admin");
     navigate("/");
   }
 
-  async function handleDirectAdminRoom(){
-    const ref = await database.ref(`rooms/${roomId}`).get();
-    const ownerRoom = ref.val().authorId;
-    if(user?.id === ownerRoom){
-      navigate(`/admin/rooms/${roomId}`);
-      setAdmin(true);
+  async function handleDirectAdminRoom() {
+    if (admin) {
+      return navigate(`/admin/rooms/${roomId}`);
     }
-    if(user?.id !== ownerRoom){
-     alert('You need to be the room owner to enter the administration', );
+
+    if (!admin) {
+      alert("You need to be the room owner to enter the administration");
+      sessionStorage.removeItem("admin");
     }
   }
 
@@ -44,9 +44,25 @@ export const Header = ({ roomId, params }: HeaderProps) => {
       <div className="content">
         <div>
           {dark ? (
-            <img src={darklogoImg} alt="LetmeaskDark" />
+            <img
+              onClick={() => {
+                if (location.pathname === `/admin/rooms/${roomId}`)
+                  return navigate(`/rooms/${roomId}`);
+                navigate("/");
+              }}
+              src={darklogoImg}
+              alt="LetmeaskDark"
+            />
           ) : (
-            <img src={logoImg} alt="Letmeask" />
+            <img
+              onClick={() => {
+                if (location.pathname === `/admin/rooms/${roomId}`)
+                  return navigate(`/rooms/${roomId}`);
+                navigate("/");
+              }}
+              src={logoImg}
+              alt="Letmeask"
+            />
           )}
           <ReactSwitch
             onChange={insertMode}

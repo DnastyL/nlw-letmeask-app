@@ -8,13 +8,13 @@
       .room-code {
         background: #737380;
       }
-      .button{
-            &.outlined{
-              background: #737380;
-              color: #000;
-            }
-          }
+      .button {
+        &.outlined {
+          background: #737380;
+          color: #000;
         }
+      }
+    }
     .room-title {
       h1 {
         color: #efeff1;
@@ -45,17 +45,62 @@
         color: #737380;
       }
 
-      &.answered {
-        background-color: #181717;
-        p {
-          color: #737380;
-        }
-      }
       &.highlighted {
-        background: #c4b1ff;
+        background: #bbb3d1;
         border: 2px solid #835afd;
         p {
           color: #000;
+        }
+      }
+    }
+
+    .form-answer {
+      .class-input {
+        background: #111214;
+        color: #fff;
+        transition: border-bottom 0.3s;
+        &:focus {
+          border-bottom: 2px solid white;
+        }
+      }
+      .btn-cancel,
+      .btn-submit {
+        background-color: #111214;
+        color: #fefefe;
+        &:hover {
+          cursor: pointer;
+          filter: brightness(0.6);
+        }
+      }
+      .btn-submit {
+        background-color: #1e81ae;
+        &:disabled {
+          background-color: #111214;
+          filter: brightness(0.6);
+          &:hover {
+            cursor: auto;
+          }
+        }
+      }
+    }
+
+    .answers {
+      .author-answer-info {
+        > span {
+          color: #737380;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+      > p {
+        color: #737380;
+        font-size: 14px;
+      }
+      .answer-content {
+        > p {
+          color: #737380;
+          word-break: break-word;
+          text-align: justify;
         }
       }
     }
@@ -78,6 +123,9 @@
         align-items: center;
 
         > img {
+          &:hover {
+            cursor: pointer;
+          }
           max-height: 45px;
         }
 
@@ -170,45 +218,105 @@
       margin-top: 32px;
     }
   }
+  .answer-box {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    max-width: 100%;
+    padding-top: 16px;
+    margin-bottom: 5px;
+    .box-img {
+      > img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+    }
+  }
+  .form-answer {
+    width: 100%;
+    .class-input {
+      height: 24px;
+      background: #fefefe;
+      outline: none;
+      width: 100%;
+      border: white;
+      border-bottom: 2px solid #737380;
+      &:focus {
+        border-bottom: 2px solid black;
+      }
+    }
+
+    > div {
+      display: flex;
+      margin-top: 6px;
+      gap: 0.8rem;
+      justify-content: flex-end;
+    }
+    .btn-cancel,
+    .btn-submit {
+      background-color: #f8f8f8;
+      padding: 10px 16px;
+      border: none;
+      color: #111214;
+      font-size: 1.4rem;
+      &:hover {
+        cursor: pointer;
+        border-radius: 24px;
+        filter: brightness(0.6);
+      }
+    }
+    .btn-submit {
+      background-color: #1e81ae;
+      border-radius: 24px;
+      &:disabled {
+        background-color: #fefefe;
+        filter: brightness(0.8);
+        &:hover {
+          cursor: auto;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
   #page-room {
-    header{
-      .content{
-          flex-direction: column;
-          align-items: flex-start;
+    header {
+      .content {
+        flex-direction: column;
+        align-items: flex-start;
       }
-  }
+    }
     main {
       padding: 0 20px;
     }
   }
 }
 
-@media (max-width: 556px){
-    .content{
-        .header-div{
-          .room-code{
-            max-width: 240px;
-          }
-        }
-    }
-}
-
-@media (max-width: 420px){
-  .content{
-      .header-div{
-          flex-direction: initial;
-          flex-wrap: wrap;
-          padding: 10px 0;
+@media (max-width: 556px) {
+  .content {
+    .header-div {
+      .room-code {
+        max-width: 240px;
       }
+    }
   }
 }
 
-@media (max-width: 268px){
-  .header-div{
-    .room-code{
+@media (max-width: 420px) {
+  .content {
+    .header-div {
+      flex-direction: initial;
+      flex-wrap: wrap;
+      padding: 10px 0;
+    }
+  }
+}
+
+@media (max-width: 268px) {
+  .header-div {
+    .room-code {
       width: 155px;
     }
   }

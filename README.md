@@ -25,6 +25,7 @@ Protected routes, async functions, darkmode(save mode with localstorage), app re
 ![image](https://user-images.githubusercontent.com/99768610/177196750-f60e9dbf-d311-4409-ab07-93ca10cba68f.png)
 
 
+
 # Technologies
 
 - React 

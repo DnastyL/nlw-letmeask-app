@@ -8,13 +8,14 @@ import { Room } from "../pages/Room";
 export const AppRoutes = () => {
   const { user, admin } = useAuth();
 
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       {!!user && (
         <>
-          <Route path="/rooms/new" element={<NewRoom />} />
           <Route path="/rooms/:id" element={<Room />} />
+          <Route path="/rooms/new" element={<NewRoom />} />
           <Route path="*" element={<Navigate to="/" />} />
         </>
       )}

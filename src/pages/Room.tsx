@@ -1,7 +1,7 @@
 import { Button } from "../components/Button/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/room.scss";
-import { FormEvent,  useCallback,  useEffect,  useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
 import { useRoom } from "../hooks/useRoom";
@@ -13,26 +13,33 @@ import { QuestionListUser } from "../components/QuestionListUser/QuestionListUse
 export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
-  const { user, signInWithGoogle} = useAuth();
+  const { user, signInWithGoogle, setAdmin, setUpdateQuestions, updateQuestions } = useAuth();
   const [newQuestion, setNewQuestion] = useState("");
-  const { title, questions } = useRoom(roomId);
+  const { title, questions, answers } = useRoom(roomId);
   const { dark } = useDark();
   const navigate = useNavigate();
 
   const verificationRoom = useCallback(async () => {
     const ref = await database.ref(`rooms/${roomId}`).get();
-    
-    if(ref.val() === null){
-      return navigate(`/`)
-    }  
-  },[navigate, roomId])
+    const ownerRoom = ref.val() !== null ? ref.val().authorId : null;
+    const admin = ownerRoom === user?.id;
 
-  useEffect(() =>{
-       verificationRoom()
-       .catch(console.error);
-  }, [verificationRoom])
+    if (ref.val() === null) {
+      return navigate(`/`);
+    } else if (admin) {
 
+      setAdmin(true);
+      sessionStorage.setItem("admin", "true");
+      return;
+    }
 
+    setAdmin(false);
+    sessionStorage.removeItem("admin");
+  }, [navigate, roomId, setAdmin, user?.id]);
+
+  useEffect(() => {
+    verificationRoom().catch(console.error);
+  }, [verificationRoom]);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -48,20 +55,21 @@ export function Room() {
     const question = {
       content: newQuestion,
       author: {
+        id: user.id,
         name: user.name,
         avatar: user.avatar,
       },
       isHighlighted: false,
-      isAnswered: false,
     };
 
     await database.ref(`rooms/${roomId}/questions`).push(question);
+    setUpdateQuestions(!updateQuestions);
     setNewQuestion("");
   }
 
-  async function handleLogin(){
-    if (!user){
-      return signInWithGoogle()
+  async function handleLogin() {
+    if (!user) {
+      return signInWithGoogle();
     }
   }
 
@@ -87,7 +95,8 @@ export function Room() {
               </div>
             ) : (
               <span>
-                Para enviar uma pergunta, <button onClick={handleLogin}>faça seu login.</button>
+                Para enviar uma pergunta,{" "}
+                <button onClick={handleLogin}>faça seu login.</button>
               </span>
             )}
             <Button type="submit" disabled={!user}>
@@ -95,7 +104,12 @@ export function Room() {
             </Button>
           </div>
         </form>
-        <QuestionListUser roomId={roomId} user={user} questions={questions} />
+        <QuestionListUser
+          roomId={roomId}
+          user={user}
+          questions={questions}
+          answers={answers}
+        />
       </main>
     </div>
   );
